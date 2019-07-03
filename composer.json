@@ -1,0 +1,15 @@
+{
+    "name": "robinscholz/better-rest",
+    "description": "Kirby Plugin for better REST requests",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robin Scholz",
+            "email": "dev@studioscholz.info"
+        }
+    ],
+    "require": {
+        "getkirby/composer-installer": "^1.1"
+    }
+}

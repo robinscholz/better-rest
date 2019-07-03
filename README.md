@@ -1,4 +1,4 @@
-# 🤝 Better Rest Plugin
+# 🤝 Better Rest plugin
 
 A small plugin that exposes the internal Kirby REST API at `/rest` and converts Kirbytags to HTML in the process.
 

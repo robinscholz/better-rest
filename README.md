@@ -5,7 +5,7 @@ A small plugin that exposes the internal Kirby REST API at `/rest` and converts 
 ## Caveats
 
 ### GET only
-The plugin allows only `GET` requests.
+The plugin only allows `GET` requests.
 
 ### HTTPS
 The Kirby installation needs to be served with a _TLS Certicificate_ via `https`.

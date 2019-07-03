@@ -63,6 +63,9 @@ permissions:
     update: false
 ```
 
+### Multilang
+The plugin supports multiple language settings. To fetch content for a specific language include a _X-Language header_ containing the desired language code with your request.
+
 ## Installation
 
 ### Download

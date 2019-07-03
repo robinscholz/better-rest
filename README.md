@@ -1,12 +1,17 @@
-# 🤝 Better Rest plugin
+# 🤝 Better REST plugin
 
 A small plugin that exposes the internal Kirby REST API at `/rest` and converts Kirbytags to HTML in the process.
 
-## Specification
+## Caveats
 
-- The plugin allows only `GET` requests.
-- The Kirby installation needs to be served with a _TLS Certicificate_ via `https`.
-- For local development use [Laravel Valet](https://laravel.com/docs/5.8/valet) or disable `https` in your `site/config/config.php`:
+### GET only
+The plugin allows only `GET` requests.
+
+### HTTPS
+The Kirby installation needs to be served with a _TLS Certicificate_ via `https`.
+
+### Local setup
+For local development use [Laravel Valet](https://laravel.com/docs/5.8/valet) or disable `https` in your `site/config/config.php`:
 
 ``` php
 return [
@@ -17,7 +22,8 @@ return [
 ```
 Do not use this setting for production environments!
 
-- Requests need to be authenticated via _Basic Auth_. It’s recommended to create a seperate _API User_ with a special blueprint at `site/blueprints/users/api.yml`:
+### Authentification
+Requests need to be authenticated via _Basic Auth_. It’s recommended to create a seperate _API User_ with a special blueprint at `site/blueprints/users/api.yml`:
 
 ``` yml
 title: API access
@@ -60,20 +66,12 @@ permissions:
 ## Installation
 
 ### Download
-
 Download and copy this repository to `/site/plugins/better-rest`.
 
 ### Git submodule
-
 ```
 git submodule add https://github.com/robinscholz/better-rest.git site/plugins/better-rest
 ```
 
-
 ## License
-
 MIT
-
-## Credits
-
-- [Robin Scholz](https://github.com/robinscholz)

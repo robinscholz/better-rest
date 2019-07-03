@@ -20,9 +20,7 @@ return [
   ]
 ];
 ```
-<Warning>
-  Do not use this setting for production environments!
-</Warning>
+warning::Do not use this setting for production environments!
 
 ### Authentification
 Requests need to be authenticated via _Basic Auth_. It’s recommended to create a seperate _API User_ with a special blueprint at `site/blueprints/users/api.yml`:

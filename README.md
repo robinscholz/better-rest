@@ -71,6 +71,11 @@ The plugin supports multiple language settings. To fetch content for a specific 
 ### Download
 Download and copy this repository to `/site/plugins/better-rest`.
 
+### Composer 
+```
+composer require robinscholz/better-rest
+```
+
 ### Git submodule
 ```
 git submodule add https://github.com/robinscholz/better-rest.git site/plugins/better-rest

@@ -8,28 +8,7 @@ Kirby::plugin('robinscholz/better-rest', [
         'env'     => 'api',
         'action'  => function ($path = null) {
 
-          $base = dirname(__DIR__, 3);
-
-          $langFiles = glob($base . '/site/languages' . '/*.php');
-          $languages = array();
-          foreach ($langFiles as $language) {
-            $languages[] = include $language;
-          }
-
-          $kirby = new Kirby([
-            'roots' => [
-              'base'     => $base,
-              'index'    => $base . '/public',
-              'content'  => $base . '/content',
-              'site'     => $base . '/site',
-              'storage'  => $storage = $base . '/storage',
-              'accounts' => $storage . '/accounts',
-              'cache'    => $storage . '/cache',
-              'sessions' => $storage . '/sessions',
-            ],
-            'languages' => $languages
-          ]);
-
+          $kirby = Kirby::instance();
           $request = $kirby->request();
 
           if ($languageCode = $request->header('x-language')) {

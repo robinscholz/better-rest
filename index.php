@@ -23,16 +23,13 @@ Kirby::plugin('robinscholz/better-rest', [
 
           $decoded = json_decode($render, true);
 
-          function ktags($array)
-          {
-            foreach ($array as $key => $value) {
+          function ktags($array) {
+            return array_map(static function($value) {
               if (is_array($value)) {
-                $array[$key] = ktags($value);
-              } else {
-                $array[$key] = kirbytags($value);
+                  return ktags($value);
               }
-            }
-            return $array;
+              return kirbytags($value);
+            }, $array);
           }
 
           $decoded = ktags($decoded);

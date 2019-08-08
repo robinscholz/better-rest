@@ -1,4 +1,4 @@
-# 🤝 Better REST plugin
+# 🤝 Better REST
 
 Small [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` and converts Kirbytags to HTML in the process. Intended to convert Kirby into a headless CMS.
 

@@ -1,0 +1,35 @@
+title: Better-Rest Plugin API access
+extends: users/default
+
+permissions:
+  access:
+    panel: true
+    users: false
+    site: false
+  site:
+    update: false
+  pages:
+    create: false
+    changeTemplate: false
+    changeTitle: false
+    changeURL: false
+    hide: false
+    sort: false
+    update: false
+    delete: false
+  users:
+    create: false
+    createAvatar: false
+    deleteAvatar: false
+    changeName: false
+    changeEmail: false
+    changePassword: false
+    changeRole: false
+    delete: false
+    update: false
+  files:
+    create: false
+    changeName: false
+    delete: false
+    replace: false
+    update: false

@@ -1,0 +1,11 @@
+title: Default Page
+preset: page
+sections:
+  images:
+    type: files
+
+  fields:
+    type: fields
+    fields:
+      testimage:
+        type: image

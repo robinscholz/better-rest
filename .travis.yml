@@ -1,0 +1,7 @@
+language: php
+php: 7.2
+matrix:
+  fast_finish: true
+install: composer install --no-interaction
+script: composer test
+after_success: travis_retry php vendor/bin/php-coveralls -v

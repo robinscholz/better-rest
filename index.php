@@ -1,5 +1,10 @@
 <?php
 Kirby::plugin('robinscholz/better-rest', [
+  'options' => [
+    'srcset' => [375, 667, 1024, 1680],
+    'kirbytags' => true,
+    'markdown' => false
+  ],
 	'routes' => function ($kirby) {
     return [
       [
@@ -23,16 +28,46 @@ Kirby::plugin('robinscholz/better-rest', [
 
           $decoded = json_decode($render, true);
 
-          function ktags($array) {
-            return array_map(static function($value) {
-              if (is_array($value)) {
-                  return ktags($value);
-              }
-              return kirbytags($value);
+          function addSrcSet($value, $srcset_option) {
+            $newFile = new File($value);
+            $value['srcset'] = $newFile->srcset($srcset_option);
+            return $value;
+          }
+
+          function modifyContent($array, $kirby) {
+            $srcset_option = $kirby->option('robinscholz.better-rest.srcset');
+            $ktags_option = $kirby->option('robinscholz.better-rest.kirbytags');
+            $markdown_option = $kirby->option('robinscholz.better-rest.markdown');
+
+            return array_map(
+              static function($value) 
+              use ($srcset_option, $ktags_option, $markdown_option, $kirby) 
+            {
+                // Loop and check for images
+                if (is_array($value)) {
+                  if (
+                    !empty($srcset_option) &&
+                    array_key_exists('type', $value) && 
+                    $value['type'] === 'image'
+                  ) {
+                    return addSrcSet($value, $srcset_option);
+                  } else {
+                    return modifyContent($value, $kirby);
+                  }
+                }
+                // Kirbytags
+                if ($ktags_option) {
+                  $value = kirbytags($value);
+                }
+                // Markdown
+                if($markdown_option) {
+                  $value = markdown($value);
+                }
+                return $value;
             }, $array);
           }
 
-          $decoded = ktags($decoded);
+          $decoded = modifyContent($decoded, $kirby);
           return $decoded;
         }
       ]

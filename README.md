@@ -1,6 +1,6 @@
 # 🤝 Better REST
 
-Small [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` and converts Kirbytags to HTML in the process. Intended to convert Kirby into a headless CMS.
+Small [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` with the option to convert Kirbytags and Markdown to HTML and add a `srcset` to images in the process. Intended to convert Kirby into a headless CMS.
 
 ## Caveats
 
@@ -21,6 +21,18 @@ return [
 ];
 ```
 > **WARNING**: Do not use this setting for production environments!
+
+
+### Settings
+The plugin converts _kirbytags_ to HTML and adds a `srcset` to images by default. Additionally it is able to convert _markdown_ to HTML. To turn off either option set it to `false`.
+
+| Settings  | Default                  | Options            |
+| --------- | ------------------------ | ------------------ |
+| kirbytags | `true`                   | `boolean`          |
+| markdown  | `false`                  | `boolean`          |
+| srcset    | `[375, 667, 1024, 1680]` | `Array` || `false` |
+
+> **WARNING**: All settings need to be prefixed with _robinscholz.better-rest._!
 
 ### Authentification
 Requests need to be authenticated via _Basic Auth_. It’s recommended to create a seperate _API User_ with a special blueprint at `site/blueprints/users/api.yml`:

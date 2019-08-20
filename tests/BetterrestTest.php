@@ -56,9 +56,81 @@ class BetterrestTest extends TestCase
         kirby()->impersonate('kirby');
 
         $rest = new Robinscholz\Betterrest();
-        $rest->setContent(kirby()->api()->call('pages/test'));
-        $rest->setData($rest->modifyContent($rest->content));
+        $content = kirby()->api()->call('pages/test');
+        $rest->setContent($content);
+        $this->assertTrue($rest->getContent() === $content);
+
+        // test no data to modify
+        $this->assertNull($rest->modifyContent(null));
+        $this->assertNull($rest->modifyContent([]));
+
+        $data = $rest->modifyContent($rest->content);
+        $rest->setData($data);
+        $this->assertTrue($rest->getData() === $data);
 
         $this->assertIsArray($rest->data);
+    }
+
+    public function testNoDataResponse()
+    {
+        kirby()->impersonate('kirby');
+
+        $rest = new Robinscholz\Betterrest();
+        $rest->setContent(null);
+
+        // no data yet: empty array and 404
+        $response = $rest->response();
+        $this->assertIsArray($response);
+        $this->assertCount(0, $response);
+        $this->assertTrue(kirby()->response()->code() === 404);
+    }
+
+    public function testStaticRest()
+    {
+        $response = Robinscholz\Betterrest::rest();
+
+        // no data yet: empty array and 404
+        $this->assertIsArray($response);
+        $this->assertCount(0, $response);
+        $this->assertTrue(kirby()->response()->code() === 404);
+    }
+
+    public function testContentFromRequest()
+    {
+        kirby()->impersonate('kirby');
+
+        $rest = new Robinscholz\Betterrest();
+        $options = $rest->getOptions();
+        $this->assertNull($options['language']);
+
+        // trigger setting of language
+        $content = $rest->contentFromRequest(
+            new \Kirby\Http\Request([
+                'url' => 'pages/test'
+            ])
+        );
+        $this->assertIsArray($content);
+        $this->assertTrue($content['code'] === 200);
+    }
+
+    public function testLanguage()
+    {
+        kirby()->impersonate('kirby');
+
+        $rest = new Robinscholz\Betterrest([
+            'language' => 'de',
+        ]);
+        $options = $rest->getOptions();
+        $this->assertTrue($options['language'] === 'de');
+
+        // trigger setting of language
+        $content = $rest->contentFromRequest(
+            new \Kirby\Http\Request([
+                'url' => 'pages/test'
+            ])
+        );
+        $this->assertIsArray($content);
+        $this->assertTrue($content['code'] === 200);
+        $this->assertTrue(kirby()->language()->code() === 'de');
     }
 }

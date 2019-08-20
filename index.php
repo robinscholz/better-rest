@@ -1,4 +1,7 @@
 <?php
+
+@include_once __DIR__ . '/vendor/autoload.php';
+
 Kirby::plugin('robinscholz/better-rest', [
     'options' => [
         'srcset' => [375, 667, 1024, 1680], // array|boolean|null

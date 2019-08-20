@@ -10,29 +10,39 @@ class IndexTest extends TestCase
         });
     }
 
-    public function testFindsHomePage()
-    {
-        $response = kirby()->render('/');
-        $this->assertTrue($response->code() === 200);
-        $this->assertStringContainsString('Home', $response->body());
-    }
+//    public function testFindsHomePageEN()
+//    {
+//        $response = kirby()->render('en');
+//        $this->assertTrue($response->code() === 200);
+//        $this->assertStringContainsString('Home', $response->body());
+//    }
+//
+//    public function testFindsHomePageDE()
+//    {
+//        $response = kirby()->render('de');
+//        $this->assertTrue($response->code() === 200);
+//        $this->assertStringContainsString('Home', $response->body());
+//    }
 
     public function testFindsTestPage()
     {
-        $response = kirby()->render('/test');
-        $this->assertTrue($response->code() === 200);
+        $response = kirby()->call('en/test');
+        $this->assertEquals('en', kirby()->language()->code());
+        $this->assertStringContainsString('Test EN', $response->title()->value());
 
-        // reads title from content
-        $this->assertStringContainsString('Test', $response->body());
+        $response = kirby()->call('de/test');
+        $this->assertEquals('de', kirby()->language()->code());
+        $this->assertStringContainsString('Test DE', $response->content('de')->title()->value());
 
         // has image from field
+        $response = kirby()->render('/en/test');
         $this->assertRegExp('/media\/pages\/test\/.*-.*\/test.jpeg/', $response->body());
     }
 
-    public function testFindsFeedRoute()
-    {
-        $response = kirby()->render('/rest/test');
-        $this->assertTrue($response->code() === 200);
-        $this->assertTrue('application/json' === $response->type());
-    }
+//    public function testFindsRoute()
+//    {
+//        $response = kirby()->response('de/path/test');
+//        $this->assertTrue($response->code() === 200);
+//        $this->assertTrue('application/json' === $response->type());
+//    }
 }

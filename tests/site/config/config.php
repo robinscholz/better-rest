@@ -12,4 +12,17 @@ return [
     'api' => [
         'allowInsecure' => 'true',
     ],
+    'languages' => true,
+    'routes' => function (\Kirby\Cms\App $kirby) {
+        return [
+            [
+                'pattern' => 'path/(:all)',
+                'method' => 'GET',
+                'language' => '*',
+                'action' => function (string $path = null) {
+                    return ['path' => $path];
+                },
+            ],
+        ];
+    },
 ];

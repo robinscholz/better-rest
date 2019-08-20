@@ -63,17 +63,24 @@ final class Betterrest
      * @param \Kirby\Http\Request|null $request
      * @return array|null
      */
-    public function contentFromRequest(?\Kirby\Http\Request $request = null, bool $api = true): ?array
+    public function contentFromRequest(?\Kirby\Http\Request $request = null): ?array
     {
         // default to current request
         $request = $request ?? $this->kirby->request();
 
+        // auto detect language
         if (! \Kirby\Toolkit\A::get($this->options, 'language')) {
-            $languageCode = $request->header('x-language');
-            if ($languageCode) {
-                $this->kirby->setCurrentLanguage($languageCode);
-                $this->options['language'] = $languageCode;
+            $language = $request->header('x-language');
+            if ($language) {
+                $this->options['language'] = $language;
             }
+
+        }
+
+        // if has language and is multilang setup...
+        $language = \Kirby\Toolkit\A::get($this->options, 'language');
+        if ($language && kirby()->languages()->count() !== 0) {
+            $this->kirby->setCurrentLanguage($language);
         }
 
         // method api() is @internal
@@ -81,13 +88,17 @@ final class Betterrest
             (string)$request->path(),
             (string)$request->method(),
             [
-                'body' => $request->body()->toArray(),
+//                'body' => $request->body()->toArray(),
                 'headers' => $request->headers(),
-                'query' => $request->query()->toArray(),
+//                'query' => $request->query()->toArray(),
             ]
         );
 
-        return json_decode($render->body(), true);
+        $json = json_decode($render->body(), true);
+        if (is_array($json) && intval(\Kirby\Toolkit\A::get($json, 'code')) === 404) {
+            return null;
+        }
+        return $json;
     }
 
     /**
@@ -99,7 +110,7 @@ final class Betterrest
      */
     public function modifyContent(array $array = null): ?array
     {
-        if (! $array) {
+        if (! $array || count($array) === 0) {
             return null;
         }
 
@@ -158,8 +169,8 @@ final class Betterrest
      */
     public function response(): array
     {
-        $this->content = $this->contentFromRequest();
-        $this->data = $this->modifyContent($this->content);
+        $this->content = $this->content ?? $this->contentFromRequest();
+        $this->data = $this->data ?? $this->modifyContent($this->content);
 
         if (! $this->data) {
             $this->data = [];

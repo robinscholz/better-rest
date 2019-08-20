@@ -28,9 +28,9 @@ Kirby::plugin('robinscholz/better-rest', [
 
           $decoded = json_decode($render, true);
 
-          function addSrcSet($value, $srcset_option) {
-            $newFile = new File($value);
-            $value['srcset'] = $newFile->srcset($srcset_option);
+          function addSrcSet($value, $srcset_option, $kirby) {
+            $file = $kirby->file($value['id']);
+            $value['srcset'] = $file->srcset($srcset_option);
             return $value;
           }
 
@@ -50,7 +50,7 @@ Kirby::plugin('robinscholz/better-rest', [
                     array_key_exists('type', $value) && 
                     $value['type'] === 'image'
                   ) {
-                    return addSrcSet($value, $srcset_option);
+                    return addSrcSet($value, $srcset_option, $kirby);
                   } else {
                     return modifyContent($value, $kirby);
                   }

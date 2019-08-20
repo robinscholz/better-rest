@@ -22,17 +22,16 @@ return [
 ```
 > **WARNING**: Do not use this setting for production environments!
 
-
 ### Settings
 The plugin converts _kirbytags_ to HTML and adds a `srcset` to images by default. Additionally it is able to convert _markdown_ to HTML. To turn off either option set it to `false`.
+
+All settings need to be prefixed with `robinscholz.better-rest.`!
 
 | Settings  | Default                  | Options            |
 | --------- | ------------------------ | ------------------ |
 | kirbytags | `true`                   | `boolean`          |
 | markdown  | `false`                  | `boolean`          |
 | srcset    | `[375, 667, 1024, 1680]` | `Array` or `false` |
-
-> All settings need to be prefixed with `robinscholz.better-rest.`
 
 ### Authentification
 Requests need to be authenticated via _Basic Auth_. It’s recommended to create a seperate _API User_ with a special blueprint at `site/blueprints/users/api.yml`:

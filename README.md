@@ -30,9 +30,9 @@ The plugin converts _kirbytags_ to HTML and adds a `srcset` to images by default
 | --------- | ------------------------ | ------------------ |
 | kirbytags | `true`                   | `boolean`          |
 | markdown  | `false`                  | `boolean`          |
-| srcset    | `[375, 667, 1024, 1680]` | `Array` || `false` |
+| srcset    | `[375, 667, 1024, 1680]` | `Array` or `false` |
 
-> **WARNING**: All settings need to be prefixed with _robinscholz.better-rest._!
+> All settings need to be prefixed with `robinscholz.better-rest.`
 
 ### Authentification
 Requests need to be authenticated via _Basic Auth_. It’s recommended to create a seperate _API User_ with a special blueprint at `site/blueprints/users/api.yml`:

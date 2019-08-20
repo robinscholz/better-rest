@@ -2,8 +2,7 @@
 Kirby::plugin('robinscholz/better-rest', [
   'options' => [
     'srcset' => [375, 667, 1024, 1680],
-    'kirbytags' => true,
-    'markdown' => false
+    'kirbytags' => true
   ],
 	'routes' => function ($kirby) {
     return [
@@ -37,11 +36,10 @@ Kirby::plugin('robinscholz/better-rest', [
           function modifyContent($array, $kirby) {
             $srcset_option = $kirby->option('robinscholz.better-rest.srcset');
             $ktags_option = $kirby->option('robinscholz.better-rest.kirbytags');
-            $markdown_option = $kirby->option('robinscholz.better-rest.markdown');
 
             return array_map(
               static function($value) 
-              use ($srcset_option, $ktags_option, $markdown_option, $kirby) 
+              use ($srcset_option, $ktags_option, $kirby) 
             {
                 // Loop and check for images
                 if (is_array($value)) {
@@ -59,10 +57,7 @@ Kirby::plugin('robinscholz/better-rest', [
                 if ($ktags_option) {
                   $value = kirbytags($value);
                 }
-                // Markdown
-                if($markdown_option) {
-                  $value = markdown($value);
-                }
+
                 return $value;
             }, $array);
           }

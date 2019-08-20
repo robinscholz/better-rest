@@ -1,14 +1,8 @@
 # 🤝 Better REST
 
-<<<<<<< HEAD
-
 ![GitHub release](https://img.shields.io/github/release/robinscholz/better-rest.svg?maxAge=900) ![License](https://img.shields.io/github/license/mashape/apistatus.svg) ![Kirby Version](https://img.shields.io/badge/Kirby-3-black.svg) ![Kirby 3 Pluginkit](https://img.shields.io/badge/Pluginkit-YES-cca000.svg) [![Build Status](https://travis-ci.com/robinscholz/better-rest.svg?branch=master)](https://travis-ci.com/robinscholz/better-rest) [![Coverage Status](https://coveralls.io/repos/github/robinscholz/better-rest/badge.svg?branch=master)](https://coveralls.io/github/robinscholz/better-rest?branch=master)
 
-
-Small [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` with the option to convert Kirbytags and Markdown to HTML and add a `srcset` to images in the process. Intended to convert Kirby into a headless CMS.
-=======
 Small [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` with the option to convert Kirbytags to HTML and add a `srcset` to images in the process. Intended to convert Kirby into a headless CMS.
->>>>>>> 3af4460bc149f2c900cdafd28d10bb9321d67f17
 
 ## Caveats
 
@@ -31,11 +25,8 @@ return [
 > **WARNING**: Do not use this setting for production environments!
 
 ### Settings
-<<<<<<< HEAD
-The plugin converts _kirbytags_ to HTML and adds a `srcset` to images by default. Additionally it is able to convert _markdown_ to HTML. To turn off either option set it to `false`. You can also enforce a specific language in setting its language code.
-=======
-The plugin converts _kirbytags_ to HTML and adds a `srcset` to images by default. To turn off either option set it to `false`.
->>>>>>> 3af4460bc149f2c900cdafd28d10bb9321d67f17
+
+The plugin converts _kirbytags_ to HTML and adds a `srcset` to images by default. You can also enforce a specific language in setting its language code.
 
 All settings need to be prefixed with `robinscholz.better-rest.`!
 

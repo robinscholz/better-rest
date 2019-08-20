@@ -44,7 +44,6 @@ final class Betterrest
         $defaults = [
             'srcset' => \option('robinscholz.better-rest.srcset'),
             'kirbytags' => \option('robinscholz.better-rest.kirbytags'),
-            'markdown' => \option('robinscholz.better-rest.markdown'),
             'language' => \option('robinscholz.better-rest.language'),
         ];
         $this->options = array_merge($defaults, $options);
@@ -110,7 +109,6 @@ final class Betterrest
             // flat? exit early
             if (! is_array($value)) {
                 $value = $betterrest->applyKirbytags((string) $value);
-                $value = $betterrest->applyMarkdown((string) $value);
                 return $value;
             }
 
@@ -134,15 +132,6 @@ final class Betterrest
     public function applyKirbytags(?string $value): string
     {
         return \Kirby\Toolkit\A::get($this->options, 'kirbytags') ? \kirbytags($value) : $value;
-    }
-
-    /**
-     * @param string $value
-     * @return string
-     */
-    public function applyMarkdown(?string $value): string
-    {
-        return \Kirby\Toolkit\A::get($this->options, 'markdown') ? \markdown($value) : $value;
     }
 
     /**

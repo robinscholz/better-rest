@@ -35,12 +35,4 @@ class IndexTest extends TestCase
         $this->assertTrue($response->code() === 200);
         $this->assertTrue('application/json' === $response->type());
     }
-
-    public function testFailsOnInvalidRoute()
-    {
-        $response = kirby()->render('/rest/does-not-exist');
-        $this->assertTrue($response->code() === 404);
-        $this->assertTrue('application/json' === $response->type());
-    }
-
 }

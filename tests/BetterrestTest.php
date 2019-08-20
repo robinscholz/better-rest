@@ -22,7 +22,6 @@ class BetterrestTest extends TestCase
         // this makes sure the defaults do not change later
         $this->assertCount(4, $options['srcset']);
         $this->assertTrue($options['kirbytags'] === true);
-        $this->assertTrue($options['markdown'] === false);
         $this->assertTrue($options['language'] === null);
     }
 
@@ -31,7 +30,6 @@ class BetterrestTest extends TestCase
         $rest = new Robinscholz\Betterrest([
             'srcset' => false,
             'kirbytags' => false,
-            'markdown' => true,
             'language' => 'de',
         ]);
         $options = $rest->getOptions();
@@ -39,7 +37,6 @@ class BetterrestTest extends TestCase
 
         $this->assertTrue($options['srcset'] === false);
         $this->assertTrue($options['kirbytags'] === false);
-        $this->assertTrue($options['markdown'] === true);
         $this->assertTrue($options['language'] === 'de');
     }
 

@@ -88,9 +88,8 @@ final class Betterrest
             (string)$path,
             (string)$request->method(),
             [
-                // 'body' => $request->body()->toArray(),
                 'headers' => $request->headers(),
-                // 'query' => $request->query()->toArray(),
+                'query' => $request->query()->toArray(),
             ]
         );
 

@@ -67,6 +67,7 @@ final class Betterrest
     {
         // default to current request
         $request = $request ?? $this->kirby->request();
+        $path = preg_replace('/rest/', '', (string)$request->path(), 1);
 
         // auto detect language
         if (! \Kirby\Toolkit\A::get($this->options, 'language')) {
@@ -74,7 +75,6 @@ final class Betterrest
             if ($language) {
                 $this->options['language'] = $language;
             }
-
         }
 
         // if has language and is multilang setup...
@@ -85,12 +85,12 @@ final class Betterrest
 
         // method api() is @internal
         $render = $this->kirby->api()->render(
-            (string)$request->path(),
+            (string)$path,
             (string)$request->method(),
             [
-//                'body' => $request->body()->toArray(),
+                // 'body' => $request->body()->toArray(),
                 'headers' => $request->headers(),
-//                'query' => $request->query()->toArray(),
+                // 'query' => $request->query()->toArray(),
             ]
         );
 
@@ -149,7 +149,7 @@ final class Betterrest
      * @param $value
      * @return string
      */
-    public function applySrcSet($value): string
+    public function applySrcSet($value): array
     {
         $srcset = \Kirby\Toolkit\A::get($this->options, 'srcset');
         $file = $this->kirby->file($value['id']);

@@ -164,8 +164,10 @@ final class Betterrest
     {
         $srcset = \Kirby\Toolkit\A::get($this->options, 'srcset');
         if (! $srcset) {
+            // $value['srcset'] = null; // NOTE: not setting is better for frontend than `null`
             return $value;
         }
+
         $file = $this->kirby->file($value['id']);
         $value['srcset'] = $file->srcset($srcset);
 

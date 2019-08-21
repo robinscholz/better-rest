@@ -69,6 +69,7 @@ final class Betterrest
         $request = $request ?? $this->kirby->request();
         $path = preg_replace('/rest/', '', (string)$request->path(), 1);
 
+        // @codeCoverageIgnoreStart
         // auto detect language
         if (! \Kirby\Toolkit\A::get($this->options, 'language')) {
             $language = $request->header('x-language');
@@ -76,6 +77,7 @@ final class Betterrest
                 $this->options['language'] = $language;
             }
         }
+        // @codeCoverageIgnoreEnd
 
         // if has language and is multilang setup...
         $language = \Kirby\Toolkit\A::get($this->options, 'language');
@@ -147,7 +149,7 @@ final class Betterrest
 
     /**
      * @param $value
-     * @return string
+     * @return array
      */
     public function applySrcSet($value): array
     {

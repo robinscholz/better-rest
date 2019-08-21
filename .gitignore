@@ -7,7 +7,7 @@
 /tests/logs
 /tests/media
 /tests/site/accounts
-/tests/site/session
+/tests/site/sessions
 /tests/site/cache
 
 # files of Composer dependencies that are not needed for the plugin

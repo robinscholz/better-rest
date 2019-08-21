@@ -18,8 +18,8 @@ return [
             [
                 'pattern' => 'path/(:all)',
                 'method' => 'GET',
-                'language' => '*',
-                'action' => function (string $path = null) {
+                'language' => 'en',
+                'action' => function ($language, string $path = null) {
                     return ['path' => $path];
                 },
             ],

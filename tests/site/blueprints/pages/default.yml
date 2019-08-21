@@ -8,4 +8,4 @@ sections:
     type: fields
     fields:
       testimage:
-        type: image
+        type: files

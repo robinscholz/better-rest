@@ -39,10 +39,14 @@ class IndexTest extends TestCase
         $this->assertRegExp('/media\/pages\/test\/.*-.*\/test.jpeg/', $response->body());
     }
 
-//    public function testFindsRoute()
-//    {
-//        $response = kirby()->response('de/path/test');
-//        $this->assertTrue($response->code() === 200);
-//        $this->assertTrue('application/json' === $response->type());
-//    }
+    public function testFindsRouteFromTestConfig()
+    {
+        $response = kirby()->render('en/path/pages/test');
+        $this->assertTrue($response->code() === 200);
+        $this->assertTrue('application/json' === $response->type());
+        $this->assertStringContainsString(
+            'pages/test',
+            json_decode($response->body())->path
+        );
+    }
 }

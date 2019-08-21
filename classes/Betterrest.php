@@ -163,6 +163,9 @@ final class Betterrest
     public function applySrcSet($value): array
     {
         $srcset = \Kirby\Toolkit\A::get($this->options, 'srcset');
+        if (! $srcset) {
+            return $value;
+        }
         $file = $this->kirby->file($value['id']);
         $value['srcset'] = $file->srcset($srcset);
 

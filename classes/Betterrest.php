@@ -80,8 +80,16 @@ final class Betterrest
         }
 
         // options from query
-        $queryToOptions = array_merge(\Kirby\Toolkit\A::get($this->options, 'query', []), $request->query()->toArray());
+        $query = $request->query()->toArray();
+        $queryToOptions = array_merge(\Kirby\Toolkit\A::get($this->options, 'query', []), $query);
         $this->options = array_merge($this->options, $this->optionsFromQuery($queryToOptions));
+
+        $queryWithoutBetterRestParams = $query;
+        foreach($query as $key => $value) {
+            if (substr($key, 0, 3) === 'br-') {
+                unset($queryWithoutBetterRestParams[$key]);
+            }
+        }
 
         // method api() is @internal
         $render = $this->kirby->api()->render(
@@ -90,7 +98,7 @@ final class Betterrest
             [
                 // 'body' => $request->body()->toArray(),
                 'headers' => $request->headers(),
-                'query' => $request->query()->toArray(),
+                'query' => $queryWithoutBetterRestParams,
             ]
         );
 

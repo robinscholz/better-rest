@@ -65,10 +65,16 @@ class BetterrestTest extends TestCase
         $this->assertNull($rest->modifyContent([]));
 
         $data = $rest->modifyContent($rest->content);
+
+        $this->assertIsArray($rest->getOptions()['srcset']);
+        $this->assertRegExp(
+            '/^\/media\/pages\/test\/.*(375w,).*(667w,).*(1024w,).*(1680w)$/',
+            $data['data']['content']['testimage'][0]['srcset']
+        );
+
+        $this->assertIsArray($data);
         $rest->setData($data);
         $this->assertTrue($rest->getData() === $data);
-
-        $this->assertIsArray($rest->data);
     }
 
     public function testNoDataResponse()

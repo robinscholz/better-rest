@@ -16,13 +16,13 @@ final class Betterrest
      *
      * @var null|array
      */
-    public $content;
+    private $content;
 
     /* All data parsed from content
      *
      * @var null|array
      */
-    public $data;
+    private $data;
 
     /* All config values
      *

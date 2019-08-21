@@ -53,10 +53,10 @@ class BetterrestTest extends TestCase
         kirby()->impersonate('kirby');
 
         $rest = new Robinscholz\Betterrest();
-        $rest->content = kirby()->api()->call('pages/test');
+        $rest->setContent(kirby()->api()->call('pages/test'));
 
-        $this->assertIsArray($rest->content);
-        $this->assertTrue($rest->content['code'] === 200);
+        $this->assertIsArray($rest->getContent());
+        $this->assertTrue($rest->getContent()['code'] === 200);
     }
 
     public function testContentModification()
@@ -72,7 +72,7 @@ class BetterrestTest extends TestCase
         $this->assertNull($rest->modifyContent(null));
         $this->assertNull($rest->modifyContent([]));
 
-        $data = $rest->modifyContent($rest->content);
+        $data = $rest->modifyContent($rest->getContent());
 
         $this->assertIsArray($rest->getOptions()['srcset']);
         $this->assertRegExp(
@@ -83,6 +83,24 @@ class BetterrestTest extends TestCase
         $this->assertIsArray($data);
         $rest->setData($data);
         $this->assertTrue($rest->getData() === $data);
+    }
+
+    public function testNoSrcset()
+    {
+        kirby()->impersonate('kirby');
+
+        $rest = new Robinscholz\Betterrest([
+            'srcset' => null,
+        ]);
+        $content = kirby()->api()->call('pages/test');
+        $rest->setContent($content);
+        $data = $rest->modifyContent($rest->getContent());
+
+        $this->assertNull($rest->getOptions()['srcset']);
+        $this->assertArrayNotHasKey(
+            'srcset',
+            $data['data']['content']['testimage'][0]
+        );
     }
 
     public function testNoDataResponse()

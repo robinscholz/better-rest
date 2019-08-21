@@ -206,7 +206,7 @@ final class Betterrest
         }
         if ($srcset = \Kirby\Toolkit\A::get($query, 'br-srcset')) {
             $srcset = str_replace([' ', '%20'], ['', ''], (string) $srcset);
-            $optionsFromQuery['srcset'] = in_array($srcset, ['false', '0', 'null']) ? null : explode(',', $srcset);
+            $optionsFromQuery['srcset'] = in_array($srcset, ['false', '0', 'null']) ? null : array_map(static function($v) { return intval($v); }, explode(',', $srcset));
         }
 
         return $optionsFromQuery;

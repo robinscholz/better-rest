@@ -6,6 +6,7 @@ Kirby::plugin('robinscholz/better-rest', [
     'options' => [
         'srcset' => [375, 667, 1024, 1680], // array|boolean|null
         'kirbytags' => true, // boolean
+        'smartypants' => false, // boolean
         'language' => null, // null = autodetect | string {language code}
     ],
     'blueprints' => [

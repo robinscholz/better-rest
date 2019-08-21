@@ -44,17 +44,11 @@ final class Betterrest
         $defaults = [
             'srcset' => \option('robinscholz.better-rest.srcset'),
             'kirbytags' => \option('robinscholz.better-rest.kirbytags'),
+            'smartypants' => \option('robinscholz.better-rest.smartypants'),
             'language' => \option('robinscholz.better-rest.language'),
+            'query' => null,
         ];
         $this->options = array_merge($defaults, $options);
-    }
-
-    /**
-     * @return array
-     */
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 
     /**
@@ -67,7 +61,7 @@ final class Betterrest
     {
         // default to current request
         $request = $request ?? $this->kirby->request();
-        $path = preg_replace('/rest/', '', (string)$request->path(), 1);
+        $path = preg_replace('/rest/', '', (string) $request->path(), 1);
 
         // @codeCoverageIgnoreStart
         // auto detect language
@@ -85,11 +79,16 @@ final class Betterrest
             $this->kirby->setCurrentLanguage($language);
         }
 
+        // options from query
+        $queryToOptions = array_merge(\Kirby\Toolkit\A::get($this->options, 'query', []), $request->query()->toArray());
+        $this->options = array_merge($this->options, $this->optionsFromQuery($queryToOptions));
+
         // method api() is @internal
         $render = $this->kirby->api()->render(
-            (string)$path,
-            (string)$request->method(),
+            (string) $path,
+            (string) $request->method(),
             [
+                // 'body' => $request->body()->toArray(),
                 'headers' => $request->headers(),
                 'query' => $request->query()->toArray(),
             ]
@@ -120,6 +119,8 @@ final class Betterrest
 
             // flat? exit early
             if (! is_array($value)) {
+                // NOTE: order of calls is important
+                $value = $betterrest->applySmartypants((string) $value);
                 $value = $betterrest->applyKirbytags((string) $value);
                 return $value;
             }
@@ -147,6 +148,15 @@ final class Betterrest
     }
 
     /**
+     * @param string $value
+     * @return string
+     */
+    public function applySmartypants(?string $value): string
+    {
+        return \Kirby\Toolkit\A::get($this->options, 'smartypants') ? \smartypants($value) : $value;
+    }
+
+    /**
      * @param $value
      * @return array
      */
@@ -157,6 +167,36 @@ final class Betterrest
         $value['srcset'] = $file->srcset($srcset);
 
         return $value;
+    }
+
+    /**
+     * @param array|null $query
+     * @return array
+     */
+    private function optionsFromQuery(?array $query = null): array
+    {
+        if (! $query) {
+            return [];
+        }
+
+        $query = array_change_key_case($query); // to lowercase
+        $optionsFromQuery = [];
+
+        if ($kirbytags = \Kirby\Toolkit\A::get($query, 'br-kirbytags')) {
+            $optionsFromQuery['kirbytags'] = self::isTrue($kirbytags);
+        }
+        if ($smartypants = \Kirby\Toolkit\A::get($query, 'br-smartypants')) {
+            $optionsFromQuery['smartypants'] = self::isTrue($smartypants);
+        }
+        if ($language = \Kirby\Toolkit\A::get($query, 'br-language')) {
+            $optionsFromQuery['language'] = strval($language);
+        }
+        if ($srcset = \Kirby\Toolkit\A::get($query, 'br-srcset')) {
+            $srcset = str_replace([' ', '%20'], ['', ''], (string) $srcset);
+            $optionsFromQuery['srcset'] = in_array($srcset, ['false', '0']) ? null : explode(',', $srcset);
+        }
+
+        return $optionsFromQuery;
     }
 
     /**
@@ -195,6 +235,14 @@ final class Betterrest
     }
 
     /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
      * @return null
      */
     public function getContent()
@@ -224,5 +272,17 @@ final class Betterrest
     public function setData($data): void
     {
         $this->data = $data;
+    }
+
+    /**
+     * @param $val
+     * @param bool $return_null
+     * @return bool|mixed|null
+     */
+    public static function isTrue($val, bool $return_null = false)
+    {
+        $boolval = ( is_string($val) ? filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : (bool) $val );
+        $boolval = $boolval === null && ! $return_null ? false : $boolval;
+        return $boolval;
     }
 }

@@ -22,7 +22,9 @@ class BetterrestTest extends TestCase
         // this makes sure the defaults do not change later
         $this->assertCount(4, $options['srcset']);
         $this->assertTrue($options['kirbytags'] === true);
+        $this->assertTrue($options['smartypants'] === false);
         $this->assertTrue($options['language'] === null);
+        $this->assertTrue($options['query'] === null);
     }
 
     public function testCustomOptions()
@@ -30,14 +32,20 @@ class BetterrestTest extends TestCase
         $rest = new Robinscholz\Betterrest([
             'srcset' => false,
             'kirbytags' => false,
+            'smartypants' => true,
             'language' => 'de',
+            'query' => [
+                'select' => 'files',
+            ],
         ]);
         $options = $rest->getOptions();
         $this->assertIsArray($options);
 
         $this->assertTrue($options['srcset'] === false);
         $this->assertTrue($options['kirbytags'] === false);
+        $this->assertTrue($options['smartypants'] === true);
         $this->assertTrue($options['language'] === 'de');
+        $this->assertCount(1, $options['query']);
     }
 
     public function testContentFromAPICall()
@@ -138,5 +146,40 @@ class BetterrestTest extends TestCase
         $this->assertIsArray($content);
         $this->assertTrue($content['code'] === 200);
         $this->assertTrue(kirby()->language()->code() === 'de');
+    }
+
+    public function testCustomQuery()
+    {
+        kirby()->impersonate('kirby');
+
+        $rest = new Robinscholz\Betterrest([
+            'query' => [
+                'select' => 'files',
+            ]
+        ]);
+        $this->assertTrue($rest->getOptions()['query']['select'] === 'files');
+
+        $content = $rest->contentFromRequest(
+            new \Kirby\Http\Request([
+                'url' => 'pages/test',
+                'query' => [
+                    'select' => 'files',
+                    'br-smartypants' => 1,
+                    'br-language' => 'de',
+                    'br-kirbytags' => 'false',
+                    'br-srcset' => '375,1200',
+                ]
+            ])
+        );
+        $rest->setContent($content);
+
+        // check if options got applied
+        $this->assertTrue($rest->getOptions()['smartypants'] === true);
+        $this->assertTrue($rest->getOptions()['kirbytags'] === false);
+        $this->assertTrue($rest->getOptions()['language'] === 'de');
+        $this->assertCount(2, $rest->getOptions()['srcset']);
+
+        $response = $rest->response();
+        $this->assertTrue($response['data']['files'][0]['id'] === 'test/test.jpeg');
     }
 }

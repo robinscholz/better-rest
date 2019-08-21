@@ -57,5 +57,8 @@ composer require robinscholz/better-rest
 git submodule add https://github.com/robinscholz/better-rest.git site/plugins/better-rest
 ```
 
+### Credits
+A big thanks to (@bnomei)[https://github.com/bnomei] who refactored the initial source code into something extendable and future proof. If you are using this plugin please consider buying a Kirby license through his (affiliate link)[https://getkirby.com/buy?status=accepted&expires=1568965667&seller=1129&affiliate=35731&link=1170&p_tok=f0bf50a7-ff74-4662-a633-f4b3cee7e939]!
+
 ## License
 MIT

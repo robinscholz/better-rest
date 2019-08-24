@@ -176,8 +176,10 @@ final class Betterrest
             return $value;
         }
 
-        $file = $this->kirby->file($value['id']);
-        $value['srcset'] = $file->srcset($srcset);
+        if (array_key_exists('id', $value)) {
+            $file = $this->kirby->file($value['id']);
+            $value['srcset'] = $file->srcset($srcset);
+        }
 
         return $value;
     }

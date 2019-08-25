@@ -1,8 +1,15 @@
 # 🤝 Better REST
 
-![GitHub release](https://img.shields.io/github/release/robinscholz/better-rest.svg?maxAge=900) ![License](https://img.shields.io/github/license/mashape/apistatus.svg) ![Kirby Version](https://img.shields.io/badge/Kirby-3-black.svg) ![Kirby 3 Pluginkit](https://img.shields.io/badge/Pluginkit-YES-cca000.svg) [![Build Status](https://travis-ci.com/robinscholz/better-rest.svg?branch=master)](https://travis-ci.com/robinscholz/better-rest) [![Coverage Status](https://coveralls.io/repos/github/robinscholz/better-rest/badge.svg?branch=master)](https://coveralls.io/github/robinscholz/better-rest?branch=master)
+![Release](https://flat.badgen.net/packagist/v/robinscholz/better-rest?color=f28d1a)
+![Stars](https://flat.badgen.net/packagist/ghs/robinscholz/better-rest?color=gray)
+![Downloads](https://flat.badgen.net/packagist/dt/robinscholz/better-rest?color=gray)
+![Issues](https://flat.badgen.net/packagist/ghi/robinscholz/better-rest?color=yellow)
+[![Build Status](https://flat.badgen.net/travis/robinscholz/better-rest)](https://travis-ci.com/robinscholz/better-rest)
+[![Coverage Status](https://flat.badgen.net/coveralls/c/github/robinscholz/better-rest)](https://coveralls.io/github/robinscholz/better-rest) 
+[![Twitter](https://flat.badgen.net/badge/twitter/RobinScholz)](https://twitter.com/RobinScholz)
+[![Twitter](https://flat.badgen.net/badge/twitter/bnomei)](https://twitter.com/bnomei)
 
-Small [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` with the option to convert Kirbytags to HTML and add a `srcset` to images in the process. Intended to convert Kirby into a headless CMS.
+A [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` with the option to convert Kirbytags to HTML and add a `srcset` to images in the process. Intended to convert Kirby into a headless CMS.
 
 
 ## Usage

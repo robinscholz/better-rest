@@ -82,7 +82,7 @@ For local development use [Laravel Valet](https://laravel.com/docs/master/valet)
 return [
   'api' => [
     'basicAuth' => true,
-    'allowInsecure' => 'true'
+    'allowInsecure' => true
   ]
 ];
 ```

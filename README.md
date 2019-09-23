@@ -19,6 +19,16 @@ The API can be accessed at `/rest`. The plugin only allows `GET` requests.
 ### Authentification
 Requests need to be authenticated via _Basic Auth_. It’s recommended to create a seperate _API User_ with either a custom blueprint or with the one provided by this plugin called [better-rest API](https://github.com/robinscholz/better-rest/blob/master/blueprints/users/betterrest.yml). Read more about [user roles in the docs](https://getkirby.com/docs/guide/users/roles).
 
+_Basic Auth_ needs to be enabled in the `site/config/config.php`:
+
+```
+return [
+    'api' => [
+        'basicAuth' => true
+    ]
+];
+```
+
 ### Kirby 3 API
 
 Examples:

@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.2.6',
-    'version' => '1.2.6.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'b35744f793a63a2a68b05d0ae7b83cef0c8b9986',
     'name' => 'robinscholz/better-rest',
   ),
   'versions' => 
@@ -530,12 +530,12 @@
     ),
     'robinscholz/better-rest' => 
     array (
-      'pretty_version' => '1.2.6',
-      'version' => '1.2.6.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'b35744f793a63a2a68b05d0ae7b83cef0c8b9986',
     ),
     'sebastian/code-unit-reverse-lookup' => 
     array (

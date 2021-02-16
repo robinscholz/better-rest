@@ -11,6 +11,7 @@
 return [
     'api' => [
         'allowInsecure' => 'true',
+        'allowImpersonation' => 'true',
     ],
     'languages' => true,
     'routes' => function (\Kirby\Cms\App $kirby) {

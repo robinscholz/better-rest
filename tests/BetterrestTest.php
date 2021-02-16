@@ -59,6 +59,10 @@ class BetterrestTest extends TestCase
         $this->assertTrue($rest->getContent()['code'] === 200);
     }
 
+        
+    /*
+    * @runInSeparateProcess
+    */
     public function testContentModification()
     {
         kirby()->impersonate('kirby');

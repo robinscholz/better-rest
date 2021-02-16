@@ -134,7 +134,7 @@ final class Betterrest
             }
 
             // it is an array. if it is an image...
-            if (\Kirby\Toolkit\A::get($value, 'type') === 'image') {
+            if (\Kirby\Toolkit\A::get($value, 'type') === 'image' && \Kirby\Toolkit\A::get($value, 'url') !== null) {
                 return $betterrest->applySrcSet($value);
 
             } else { // ... call recursive

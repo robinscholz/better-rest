@@ -11,6 +11,9 @@
 
 A [Kirby](https://getkirby.com) plugin that exposes the internal REST API at `/rest` with the option to convert Kirbytags to HTML and add a `srcset` to images in the process. Intended to convert Kirby into a headless CMS.
 
+## Disclaimer
+
+While this plugin is still functional, quite a few alternatives exist for turning Kirby into a headless content management system. If you are looking for a more sophisticated and modern solution, please take a look at the [Kirby Query Language](https://github.com/getkirby/kql) plugin, the recent work of [Johann Schopplich](https://github.com/johannschopplich) or [Kirby Content Representations](https://getkirby.com/docs/guide/templates/content-representations).
 
 ## Usage
 

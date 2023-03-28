@@ -44,7 +44,7 @@ Examples:
 
 ### Better-Rest Settings from Query
 
-All standard setting as well as settings defined in `site/config/onfig.php` can be overwritten on a per-request basis. Simply prefix the setting with `br-` and include it as a query.
+All standard setting as well as settings defined in `site/config/config.php` can be overwritten on a per-request basis. Simply prefix the setting with `br-` and include it as a query.
 
 Examples:
 
